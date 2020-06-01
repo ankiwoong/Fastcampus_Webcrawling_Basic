@@ -1,0 +1,14 @@
+<script>
+			function getIP(){return '192.10.39.52';}
+function getURL(){return 'post.phinf.naver.net/20160621_169';}
+			function getCategory(){return '이미지_광고서버';}
+			function getPolicyName(){return '(전사)기본정책(post 차단 포함)';}
+			</script>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head><title>비업무 사이트 접속 통제 안내</title>
+<body>
+<div sytle="position:absolute; top:100px; right:250px">
+<img src="http://192.10.15.87/web/img/deny_web.jpg" width="600" height="550" border="0" align="center"/>
+</body>
+</html>
