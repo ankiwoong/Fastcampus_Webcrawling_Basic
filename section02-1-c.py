@@ -23,11 +23,11 @@ else:
     # Header 정보 출력
     print(header1)
     print(header2)
-    
+
     # 다운로드 파일 정보
     print("Filename1 {}".format(file1))
     print("Filename2 {}".format(file2))
     print()
-    
+
     # 성공
     print("Download Succeed.")
