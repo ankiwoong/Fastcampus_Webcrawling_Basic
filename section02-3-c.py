@@ -15,12 +15,15 @@ def main():
     # session.get('https://www.naver.com/')
 
     # 스크랩핑 대상 URL
-    response = requests.get('https://www.naver.com/')
+    response = requests.get("https://www.naver.com/")
     # 신문사 링크 리스트 획득
     urls = scrape_news_list_page(response)
     # 결과 출력
     for url in urls:
+        # url
         print(url)
+        # 파일 쓰기
+        # 생략
 
 
 def scrape_news_list_page(response):
@@ -32,14 +35,18 @@ def scrape_news_list_page(response):
     # 문서내 경로 절대 경로 변환
     # root.make_links_absolute(response.url)
 
-    for a in root.cssselect('.api_list .api_item a.api_link'):
-        # 링크 
-        url = a.get('href')
-        # 리스트 삽입
-        urls.append(url)
+    for a in root.cssselect(".thumb_box > .popup_wrap > a.btn_popup"):
+        # 링크
+        url = a.get("href")
+        # class 중복으로 인한 # 제거 방법
+        if len(url) >= 2:
+            # 리스트 삽입
+            urls.append(url)
+        else:
+            pass
     return urls
 
 
 # 스크랩핑 시작
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
