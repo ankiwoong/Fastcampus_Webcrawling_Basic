@@ -9,39 +9,41 @@ from urllib.error import URLError, HTTPError
 path_list = ["./result/test1.jpg", "./result/index.html"]
 
 # 다운로드 리소스 URL
-target_url = ["http://post.phinf.naver.net/20160621_169/1466482468068lmSHj_JPEG/If7GeIbOPZuYwI-GI3xU7ENRrlfI.jpg",
-              "http://google.com"]
+target_url = [
+    "http://post.phinf.naver.net/MjAxOTA2MDdfMTU0/MDAxNTU5ODcxODc3NTU0.4SFrd6PeWF62ewm21H4nu5xae67wvpvVe2VjagQzilcg.iYBSJe5CZ3E_j2wBY5dlWaLHyS2YujdK0ooqPOOvFNkg.JPEG/ILFVJ_GQGHr0HniSIzDBBbUbrjpg.jpg",
+    "http://google.com",
+]
 
 for i, url in enumerate(target_url):
     # 예외 처리
     try:
         # 웹 수신 정보 읽기
         response = req.urlopen(url)
-        
+
         # 수신 내용
         contents = response.read()
 
-        print('---------------------------------------------------')
+        print("---------------------------------------------------")
 
         # 상태 정보 중간 출력
-        print('Header Info-{} : {}'.format(i, response.info()))
-        print('HTTP Status Code : {}'.format(response.getcode()))
+        print("Header Info-{} : {}".format(i, response.info()))
+        print("HTTP Status Code : {}".format(response.getcode()))
         print()
-        print('---------------------------------------------------')
+        print("---------------------------------------------------")
 
         # 파일 쓰기
-        with open(path_list[i], 'wb') as c:
+        with open(path_list[i], "wb") as c:
             c.write(contents)
 
         # HTTP 에러 발생 시
     except HTTPError as e:
         print("Download failed.")
-        print('HTTPError Code : ', e.code)
+        print("HTTPError Code : ", e.code)
 
         # URL 에러 발생 시
     except URLError as e:
         print("Download failed.")
-        print('URL Error Reason : ', e.reason)
+        print("URL Error Reason : ", e.reason)
 
         # 성공
     else:
