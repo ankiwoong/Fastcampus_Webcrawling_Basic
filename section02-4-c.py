@@ -10,57 +10,68 @@ def main():
     """
     네이버 메인 뉴스 스탠드 스크랩핑 메인 함수
     """
-    # 세션 사용
+    # 세션 사용 권장
     session = requests.Session()
 
     # 스크랩핑 대상 URL
-    response = session.get('http://www.naver.com/')
-    # 신문사 정보 딕셔너리 획득
-    urls = scrape_news_list_page(response)
+    response = session.get("https://www.naver.com/")  # Get, Post
 
-    # 딕셔너리 확인
-    # print(urls)
+    # 신문사 링크 리스트 획득
+    newspaper_name = scrape_newspaper_name(response)  # 신문사 이름
+    newspaper_url = scrape_newspaper_urls(response)  # 신문사 URL
+
+    # 딕셔너리 생성
+    news_dic = {name: value for name, value in zip(newspaper_name, newspaper_url)}
 
     # 결과 출력
-    for name, url in urls.items():
+    for name, url in news_dic.items():
         print(name, url)
 
 
-def scrape_news_list_page(response):
-    # URL 딕셔너리 선언
-    urls = {}
+def scrape_newspaper_name(response):
+    newspaper_name = []
+
     # 태그 정보 문자열 저장
     root = fromstring(response.content)
 
-    # 문서내 경로 절대 경로 변환
-    root.make_links_absolute(response.url)
-
-    for a in root.xpath('//ul[@class="api_list"]/li[@class="api_item"]/a[@class="api_link"]'):
+    # 신문사명
+    for a in root.xpath(
+        '//div[@class="thumb_area"]/div[@class="thumb_box _NM_NEWSSTAND_THUMB _NM_NEWSSTAND_THUMB_press_valid"]/a[@class="thumb"]'
+    ):
         # a 구조 확인
-        # print(dir(a))
+        # print(a)
 
         # a 문자열 출력
         # print(tostring(a, pretty_print=True))
 
-        # 신문사, 링크 추출 함수
-        name, url = extract_contents(a)
+        name = a.xpath("./img")[0].get("alt")
 
-        # 딕셔너리 삽입
-        urls[name] = url
-    return urls
+        newspaper_name.append(name)
 
-
-def extract_contents(dom):
-    # 링크 주소
-    link = dom.get('href')
-    # dom 구조 확인
-    # print(tostring(dom, pretty_print=True))
-
-    # 신문사 명
-    name = dom.xpath('./img')[0].get('alt')  # xpath('./img')
-    return name, link
+    return newspaper_name
 
 
-#  스크랩핑 시작
-if __name__ == '__main__':
+def scrape_newspaper_urls(response):
+    # URL 리스트 선언
+    newspaper_urls = []
+    # 태그 정보 문자열 저장
+    root = fromstring(response.content)
+
+    # 문서내 경로 절대 경로 변환
+    # root.make_links_absolute(response.url)
+
+    for a in root.cssselect(".thumb_box > .popup_wrap > a.btn_popup"):
+        # 링크
+        url = a.get("href")
+        # class 중복으로 인한 # 제거 방법
+        if len(url) >= 2:
+            # 리스트 삽입
+            newspaper_urls.append(url)
+        else:
+            pass
+    return newspaper_urls
+
+
+# 스크랩핑 시작
+if __name__ == "__main__":
     main()
