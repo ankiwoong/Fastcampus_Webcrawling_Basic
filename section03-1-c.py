@@ -11,25 +11,26 @@ url = "http://www.encar.com/"
 mem = urllib.request.urlopen(url)
 
 # 여러 정보
-print('type : {}'.format(type(mem)))
-print("geturl : {}".format(mem.geturl()))
-print("status : {}".format(mem.status))
-print("headers : {}".format(mem.getheaders()))
-print("getcode : {}".format(mem.getcode()))
-print("read : {}".format(mem.read(1).decode('utf-8'))) # 바이트 수
-print('parse : {}'.format(urlparse('http://www.encar.co.kr?test=test').query))
+print("type : {}".format(type(mem)))  # 타입
+print("geturl : {}".format(mem.geturl()))  # 요청한 곳(수신된 사이트)
+print("status : {}".format(mem.status))  # 연결 상태
+print("headers : {}".format(mem.getheaders()))  # 헤더 정보
+print("getcode : {}".format(mem.getcode()))  # 연결 상태
+print("read : {}".format(mem.read(100).decode("utf-8")))  # 바이트 수
+print("parse : {}".format(urlparse("http://www.encar.co.kr?test=test")))  # 구문 분석
+print("parse : {}".format(urlparse("http://www.encar.co.kr?test=test").query))  # 구문 분석
 
 # 기본 요청2(ipify)
 API = "https://api.ipify.org"
 
 # Get 방식 Parameter
-values = {
-    'format': 'json'
-}
+# values = {"format": "text"}
+values = {"format": "json"}
+# values = {"format": "jsonp"}
 
-print('before param : {}'.format(values))
+print("before param : {}".format(values))
 params = urllib.parse.urlencode(values)
-print('after param : {}'.format(params))
+print("after param : {}".format(params))
 
 # 요청 URL 생성
 url = API + "?" + params
@@ -39,5 +40,5 @@ print("요청 url= {}".format(url))
 data = urllib.request.urlopen(url).read()
 
 # 수신 데이터 디코딩
-text = data.decode("utf-8")
-print('response : {}'.format(text))
+text = data.decode("utf-8")  # 생략 가능(파이썬 3.x 는 기본 utf-8)
+print("response : {}".format(text))
