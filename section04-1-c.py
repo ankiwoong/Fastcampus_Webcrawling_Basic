@@ -6,43 +6,44 @@ import requests
 
 # 세션 활성화
 s = requests.Session()
-# r = s.get('https://www.naver.com')
+# r = s.get("https://www.naver.com")
 
 # 수신 데이터
-# print('1', r.text)
+# print(r.text)
 
 # 수신 상태 코드
-# print('Status Code : {}'.format(r.status_code))
+# print("Status Code : {}".format(r.status_code))
 
-# 확인
-# print('OK? : {}'.format(r.ok))
+# 확인(수신 상태 코드)
+# print("OK? : {}".format(r.ok))
 
-# 세션 비활성화
+# 세션 비활성화(호출 리소스 해제)
 # s.close()
 
 s = requests.Session()
 
 # 쿠키 Return
-# r = s.get('http://httpbin.org/cookies', cookies={'name': 'niceman'})
-# print(r.text)
+r1 = s.get("http://httpbin.org/cookies", cookies={"name": "niceman"})
+print(r1.text)
 
 # 쿠키 Set
-# r = s.get('http://httpbin.org/cookies/set', cookies={'name': 'niceman'})
-# print(r.text)
+r2 = s.get("http://httpbin.org/cookies/set", cookies={"name": "niceman"})
+print(r2.text)
 
 # User-Agent
-# url = 'http://httpbin.org/get'
-# headers = {'user-agent': 'niceman_app_v1.0.0'}
+url = "http://httpbin.org/get"
+headers = {"user-agent": "niceman_app_v1.0.0_win10_ram16_home_chrome"}
 
 # Header 정보 전송
-# r = s.get(url, headers=headers)
-# print(r.text)
+r3 = s.get(url, headers=headers)
+print(r3.text)
 
 # 세션 비활성화
 s.close()
 
-# With 문 사용
+# With 문 사용(권장) -> 파일, DB, HTTP
 with requests.Session() as s:
-    pass
-    # r = s.get('https://www.naver.com')
-    # print(r.text)
+    # pass
+    r = s.get("https://www.daum.net")
+    print(r.text)
+    print(r.ok)
