@@ -61,3 +61,10 @@
    - Fake-UserAgent 사용
    - Header 정보 삽입
    - 수신 데이터 가공 및 추출
+
+2020.07.29>
+17. Requests 요청 정보 Payload
+   - 세션 활성화 및 비활성화
+   - 쿠키 정보 전송
+   - User-Agent 정보 전송
+   - 수신 상태 코드 확인
