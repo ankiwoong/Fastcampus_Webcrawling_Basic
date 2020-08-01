@@ -71,6 +71,19 @@
    
 2020.07.30>
 18. Httpbin 사이트를 이용한 JSON 실습
--   수신 데이터 처리 실습
--   수신 데이터 -> JSON 변환 출력
--   Response 다양한 정보 출력
+   -   수신 데이터 처리 실습
+   -   수신 데이터 -> JSON 변환 출력
+   -   Response 다양한 정보 출력
+
+2020.08.01>
+19. 개발자 도구 송수신 분석 및 실습
+   - Rest API 란?
+   - POST, PUT
+   - DELETE
+   - Requests 최종 정리
+
+20. Beautiful Soup Selector
+   - HTML 태그 선택자 이해
+   - FIND, FIND_ALL
+   - SELECT, SELECT_ONE
+   - 다양한 DOM 접근 방법
