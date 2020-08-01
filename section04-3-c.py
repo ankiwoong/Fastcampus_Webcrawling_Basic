@@ -87,4 +87,5 @@ print(r.text)
 r = s.delete("https://jsonplaceholder.typicode.com/posts/1")
 print(r.text)
 
+# 세션 종료
 s.close()
