@@ -6,31 +6,37 @@ import os
 import urllib.parse as rep
 import urllib.request as req
 from fake_useragent import UserAgent
-
 from bs4 import BeautifulSoup
 
 # Header 정보 초기화
 opener = req.build_opener()
+
 # User-Agent 정보
-opener.addheaders = [('User-agent', UserAgent().ie)]
+opener.addheaders = [("User-agent", UserAgent().ie)]
+
 # Header 정보 삽입
 req.install_opener(opener)
 
 # 네이버 이미지 기본 URL(크롬 개발자 도구)
 base = "https://search.naver.com/search.naver?where=image&sm=tab_jum&query="
+
 # 검색어
-quote = rep.quote_plus("신소율")
+quote = rep.quote_plus("호랑이")
+
 # URL 완성
 url = base + quote
 
 # 요청 URL 확인
-# print('Request URL : {}'.format(url))
+# print("Request URL : {}".format(url))
 
 # Request
 res = req.urlopen(url)
+# print(res)
 
 # 이미지 저장 경로
-savePath = "./imagedown/"  # C:\\imagedown\\
+savePath = (
+    "D:\\Code\\Study\\Fastcampus_Webcrawling_Basic\\imagedown\\"  # C:\\imagedown\\
+)
 
 # 폴더 생성 예외처리 (문제 발생 시 프로그램 종료)
 try:
@@ -39,43 +45,45 @@ try:
         # 없으면 폴더 생성
         os.makedirs(os.path.join(savePath))
 except OSError as e:
-        # 에러 내용
-        print("folder creation failed!")
-        print("folder name : {}".format(e.filename))
-        
-        # 런타임 에러 raise
-        raise RuntimeError('System Exit!')
+    # 에러 내용
+    print("folder creation failed!")
+    print("folder name : {}".format(e.filename))
+
+    # 런타임 에러 raise
+    raise RuntimeError("System Exit!")
 else:
-    # 폴더 생성 정상일 경우 실행
-    print('folder is created!')
+    # 폴더 생성이 되었거나, 존재할 경우
+    print("folder is created!")
 
 # bs4 초기화
 soup = BeautifulSoup(res, "html.parser")
+# print(soup.prettify())
 
 # select 사용
 img_list = soup.select("div.img_area > a.thumb._thumb > img")
+# print(img_list)
 
 # find_all 사용 할 경우
-# img_list1 = soup.find_all("a", class_='thumb _thumb')
-#
-# print(type(img_list1))
-# for v in img_list1:
-#     img_t = v.find('img')
-#     print(dir(img_t))
-#     print(img_t.attrs['data-source'])
+# img_list2 = soup.find_all("a", class_='thumb _thumb')
+# print(img_list2)
 
 # 이미지 번호를 붙여주면서 다운로드
-for i, img_list in enumerate(img_list, 1):
+for i, img in enumerate(img_list, 1):
     # 속성 확인
-    # print(img_list['data-source'])
+    # print(img["data-source"], i)
 
     # 저장 파일명 및 경로
-    fullFileName = os.path.join(savePath, savePath + str(i) + '.png')
-    # 파일명 출력 
-    # print('full name : {}'.format(fullFileName))
-    
+    fullFileName = os.path.join(savePath, savePath + str(i) + ".png")
+    # 파일명 출력
+    print("full name : {}".format(fullFileName))
+
     # 다운로드 요청(URL, 저장경로)
-    req.urlretrieve(img_list['data-source'], fullFileName)
+    req.urlretrieve(img["data-source"], fullFileName)
+
+# for v in img_list2:
+#     img_t = v.find("img")
+#     print(dir(img_t))
+#     print(img_t.attrs['data-source'])
 
 # 다운로드 완료 시 출력
 print("download succeeded!")
