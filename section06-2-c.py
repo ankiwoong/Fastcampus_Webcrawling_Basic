@@ -81,10 +81,8 @@ for v in pro_list:
 
         # 상품명, 이미지, 가격
         print(v.select("p.prod_name > a")[0].text.strip())
-        img_link = v.select("a.thumb_link > img")[0]
-        print(img_link)
-        # print(img_link.get("data-original"))
-        # print(v.select("p.price_sect > a")[0].text.strip())
+        print(v.select("a.thumb_link > img")[0].get("data-original"))
+        print(v.select("p.price_sect > a")[0].text.strip())
 
     print()
 
